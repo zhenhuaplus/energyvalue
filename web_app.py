@@ -177,17 +177,20 @@ st.text("")
 solar_to_battery = "False"
 solar_to_battery_purchase_price = 0.35
 solar_to_grid_price = 0.42
-if strtobool(simulate_pv):
+if strtobool(simulate_pv) and load_data is not None:
     st.markdown("**5. 光伏信息**")
     col1, col2 = st.beta_columns(2)
     with col1:
-        solar_to_battery = str(st.selectbox("光伏是否可以给储能充电", ["False", "True"], "False"))
+        solar_to_battery = str(st.selectbox("光伏是否可以给储能充电", ["False", "True"], 0))
         if strtobool(solar_to_battery):
             solar_to_battery_purchase_price = st.number_input("储能收购光伏价格 (元/kWh)",
-                                                              min_value=0.00, max_value=99.99, value=0.35, step=0.01)
+                                                              min_value=0.00, max_value=99.99, value=0.39, step=0.01)
     with col2:
         solar_to_grid_price = st.number_input("光伏倒送电网单价 (元/kWh)",
                                               min_value=0.00, max_value=99.99, value=0.42, step=0.01)
+st.text("")
+st.text("")
+
 
 # Save ev inputs results
 if load_data is not None:

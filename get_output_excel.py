@@ -169,8 +169,7 @@ def obtain_results(config, load, tariff_dict):
         pv_demand_saving = post_pv_demand_bill - original_demand_bill
         storage_demand_saving = post_pv_storage_demand_bill - post_pv_demand_bill
 
-        pv_export_revenue = (
-                                    pv_params['solar_to_grid_price'] * results['solar_to_grid']).sum() / (
+        pv_export_revenue = (pv_params['solar_to_grid_price'] * results['solar_to_grid']).sum() / (
                                     60 / load_resolution)
         pv_import_charge = -(pv_params['solar_to_battery_purchase_price']
                              * results['solar_to_battery']).sum() / (60 / load_resolution)
@@ -192,8 +191,7 @@ def obtain_results(config, load, tariff_dict):
         min_net_load_after_pv_17_21 = results.loc[(results.index.hour > 17) & (
                 results.index.hour <= 21), 'net_load_after_pv'].min()
         total_pv_production_kWh = np.sum(results['pv'])
-        storage_per_kWh_revenue = (
-                                          storage_energy_saving - pv_import_charge) / project_params['battery_size_kWh']
+        storage_per_kWh_revenue = (storage_energy_saving + pv_import_charge) / project_params['battery_size_kWh']
 
         # complete_2cd = 1 if round(results.loc[results.index.hour ==
         #                                       12, 'battery_energy'].values[0]) == 0 else 0
