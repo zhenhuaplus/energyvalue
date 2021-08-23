@@ -1,0 +1,28 @@
+{
+    "project_params": {
+        "project_name": "ky",
+        "latitude": "31.954467",
+        "longitude": "119.817685",
+        "tz": "Asia/Hong_Kong",
+        "tariff_name": "jiangsu_202101_1_10kV.json",
+        "min_soc": 0.00,
+        "max_soc": 0.85,
+        "current_soc": 0.00,
+        "battery_size_kWh": 4000,
+        "battery_power_kW": 1000,
+        "one_way_efficiency": 0.92,
+        "energy_saving_ratio_2cd": 0.98,
+        "demand_saving_kW_per_day": 30,
+        "data_file": "ky_3days_15min_no_interp.csv"
+    },
+
+    "analysis_params": {
+        "peak_level": 1,
+        "peak_days": "True",
+        "weekday_only": "False",
+        "peak_hours_only": "True",
+        "peak_hour_start": 8,
+        "peak_hour_end": 17
+    }
+
+}

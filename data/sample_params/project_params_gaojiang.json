@@ -1,0 +1,37 @@
+{
+    "mode": "2cd",
+    "project_params": {
+        "project_name": "xx",
+        "latitude": "31.931037",
+        "longitude": "120.000523",
+        "tz": "Asia/Hong_Kong",
+        "tariff_name": "jiangsu_202101_1_10kV.json",
+        "min_soc": 0.00,
+        "max_soc": 1.00,
+        "current_soc": 0.00,
+        "battery_size_kWh": 500,
+        "battery_power_kW": 125,
+        "one_way_efficiency": 0.92,
+        "energy_saving_ratio_2cd": 0.98,
+        "demand_saving_kW_per_day": 30,
+        "transformer_capacity": 1130,
+        "billing_type": "transformer_capacity",
+        "data_file": "gaojiang_stategrid.csv"
+    },
+    "analysis_params": {
+        "peak_level": 1,
+        "peak_days": "True",
+        "weekday_only": "False",
+        "peak_hours_only": "True",
+        "peak_hour_start": 8,
+        "peak_hour_end": 17
+    },
+    "pv_params": {
+        "simulate_pv": "False",
+        "pv_file": "case3_pv.csv",
+        "pv_capacity": 340,
+        "solar_to_grid_price": 0.39,
+        "solar_to_battery": "True",
+        "solar_to_battery_purchase_price": 0.41
+    }
+}

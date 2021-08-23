@@ -1,0 +1,31 @@
+{
+    "mode": "2cd",
+    "project_params": {
+        "project_name": "jingleng",
+        "project_years": 15,
+        "depreciation_years": 15,
+        "latitude": "31.931037",
+        "longitude": "120.000523",
+        "tz": "Asia/Hong_Kong",
+        "tariff_name": "jiangsu_202101_35_110kV.json",
+        "min_soc": 0.00,
+        "max_soc": 1.00,
+        "current_soc": 0.00,
+        "battery_size_kWh": 10000,
+        "battery_power_kW": 2500,
+        "one_way_efficiency": 0.92,
+        "battery_degradation_per_year": 0.03,
+        "ess_cost_rmb_per_kwh": 1350,
+        "transformer_capacity": 10000,
+        "billing_type": "transformer_capacity",
+        "count_working_days": 350
+    },
+    "pv_params": {
+        "simulate_pv": "False",
+        "pv_file": "case3_pv.csv",
+        "pv_capacity": 340,
+        "solar_to_grid_price": 0.39,
+        "solar_to_battery": "True",
+        "solar_to_battery_purchase_price": 0.41
+    }
+}
