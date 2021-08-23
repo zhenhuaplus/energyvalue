@@ -1,7 +1,7 @@
 
 import logging
 from collections import defaultdict
-# from rich.logging import RichHandler
+from rich.logging import RichHandler
 from datetime import date, datetime, timedelta
 from distutils.util import strtobool
 import pandas as pd
@@ -9,12 +9,12 @@ import numpy as np
 
 level = logging.INFO
 logger = logging.getLogger(__name__)
-# shell_handler = RichHandler()
+shell_handler = RichHandler()
 logger.setLevel(level)
 fmt_shell = '%(message)s'
 shell_formatter = logging.Formatter(fmt_shell)
-# shell_handler.setFormatter(shell_formatter)
-# logger.addHandler(shell_handler)
+shell_handler.setFormatter(shell_formatter)
+logger.addHandler(shell_handler)
 
 
 def charge(
