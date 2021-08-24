@@ -14,7 +14,7 @@ import plotly.express as px
 st.set_page_config(page_title="EnergyValue", page_icon=":zap:")
 st.title("EnergyValue V2.0")
 
-st.markdown("储能系统负荷分析及收益测算工具 - 于2021年8月20日更新")
+st.markdown("储能系统负荷分析及收益测算工具 - 于2021年8月24日更新")
 st.text("")
 st.text("")
 
@@ -24,9 +24,9 @@ def get_table_download_link(df, file_name, button_name):
     in:  dataframe
     out: href string
     """
-    csv = df.to_csv(index=False, encoding='gb18030')
+    csv = df.to_excel(index=False, encoding='utf_8')
     b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
-    return f'<a href="data:file/csv;base64,{b64}" download="{file_name}.csv">{button_name}</a>'
+    return f'<a href="data:file/csv;base64,{b64}" download="{file_name}.xlsx">{button_name}</a>'
 
 
 def plot_load_data(load_data_df, mandarin=True):
