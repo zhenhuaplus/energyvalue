@@ -170,7 +170,7 @@ def obtain_results(config, load, tariff_dict):
         storage_demand_saving = post_pv_storage_demand_bill - post_pv_demand_bill
 
         pv_export_revenue = (pv_params['solar_to_grid_price'] * results['solar_to_grid']).sum() / (
-                                    60 / load_resolution)
+                60 / load_resolution)
         pv_import_charge = -(pv_params['solar_to_battery_purchase_price']
                              * results['solar_to_battery']).sum() / (60 / load_resolution)
 
@@ -279,11 +279,11 @@ def obtain_results(config, load, tariff_dict):
 
             '有需量收益天数': np.sum(current_results['storage_demand_saving'] > 0),
             '有需量收益天数的平均月收益': np.round(np.mean(current_results.loc[current_results['storage_demand_saving'] > 0,
-                                                                  'storage_demand_saving']), 1),
+                                                                  'storage_demand_saving'])),
             '有需量罚款天数': np.sum(current_results['storage_demand_saving'] <= 0),
             '有需量罚款天数的平均月罚款': np.round(np.mean(current_results.loc[current_results['storage_demand_saving'] < 0,
-                                                                  'storage_demand_saving']), 1),
-            '平均需量月收益或罚款': np.round(np.mean(current_results['storage_demand_saving']), 1),
+                                                                  'storage_demand_saving'])),
+            '平均需量月收益或罚款': np.round(np.mean(current_results['storage_demand_saving'])),
 
             '平均IRR': np.mean(current_results['IRR'])
         }
