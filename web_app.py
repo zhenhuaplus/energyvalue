@@ -83,7 +83,7 @@ def plot_tariff_data(tariff_dict, mandarin=True):
 
 
 st.markdown("**1. 基本信息**")
-col1, col2 = st.beta_columns(2)
+col1, col2 = st.columns(2)
 with col1:
     project_name = st.text_input("项目名称", "自定义名称")
     project_scope = st.selectbox("项目类型", ["新安装光伏+储能", "自带光伏, 新加储能", "只加储能"], 2)
@@ -105,11 +105,11 @@ st.text("")
 st.markdown("**2. 负荷数据分析**")
 # Show sample dataframe
 st.info('输入数据模版参考 (确保每一列名字符合要求)')
-sample_df = pd.DataFrame({"datetime": ['3/1/20 0:00', '3/1/20 0:01', '3/1/20 0:02', '...'],
-                          'net_load_after_pv': [192, 191, 199, '...'],
-                          'pv': [-5, -4, 0, '...']})
+sample_df = pd.DataFrame({"datetime": ['3/1/20 0:00', '3/1/20 0:01', '3/1/20 0:02'],
+                          'net_load_after_pv': [192, 191, 199],
+                          'pv': [5, 40, 100]})
 # data_sample = pd.read_csv("templates/data_sample.csv")
-col1, col2 = st.beta_columns((1, 2))
+col1, col2 = st.columns((1, 2))
 with col1:
     st.markdown(get_table_download_link(sample_df, file_name="输入数据模版", button_name="点击下载数据模版"),
                 unsafe_allow_html=True)
@@ -129,7 +129,7 @@ st.text("")
 
 if load_data is not None:
     st.markdown("**3. 储能系统规模**")
-    col1, col2 = st.beta_columns(2)
+    col1, col2 = st.columns(2)
     with col1:
         storage_size = st.number_input("500kWh-125kW数量", min_value=1, max_value=100, value=1, step=1)
         battery_size_kWh = storage_size * 500
@@ -150,7 +150,7 @@ st.text("")
 
 if load_data is not None:
     st.markdown("**4. 电网接入信息**")
-    col1, col2 = st.beta_columns(2)
+    col1, col2 = st.columns(2)
     with col1:
         tariff_choices = ["jiangsu_202101_1_10kV", "jiangsu_202101_20_35kV", "jiangsu_202101_35_110kV",
                           "jiangsu_202101_110_220kV", "jiangsu_202101_220kV"]
@@ -179,7 +179,7 @@ solar_to_battery_purchase_price = 0.35
 solar_to_grid_price = 0.42
 if strtobool(simulate_pv) and load_data is not None:
     st.markdown("**5. 光伏信息**")
-    col1, col2 = st.beta_columns(2)
+    col1, col2 = st.columns(2)
     with col1:
         solar_to_battery = str(st.selectbox("光伏是否可以给储能充电", ["False", "True"], 0))
         if strtobool(solar_to_battery):

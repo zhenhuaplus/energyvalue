@@ -279,11 +279,11 @@ def obtain_results(config, load, tariff_dict):
 
             '有需量收益天数': np.sum(current_results['storage_demand_saving'] > 0),
             '有需量收益天数的平均月收益': np.round(np.mean(current_results.loc[current_results['storage_demand_saving'] > 0,
-                                                                  'storage_demand_saving'])),
+                                                                  'storage_demand_saving']), 1),
             '有需量罚款天数': np.sum(current_results['storage_demand_saving'] <= 0),
             '有需量罚款天数的平均月罚款': np.round(np.mean(current_results.loc[current_results['storage_demand_saving'] < 0,
-                                                                  'storage_demand_saving']), 0),
-            '平均需量月收益或罚款': np.round(np.mean(current_results['storage_demand_saving']), 0),
+                                                                  'storage_demand_saving']), 1),
+            '平均需量月收益或罚款': np.round(np.mean(current_results['storage_demand_saving']), 1),
 
             '平均IRR': np.mean(current_results['IRR'])
         }

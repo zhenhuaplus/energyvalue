@@ -20,7 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3d0dff2-7648-4596-b3da-f921980aa650" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/environment.yml" beforeDir="false" afterPath="$PROJECT_DIR$/environment.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ei_pre.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ei_pre.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/environment.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/financial_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/financial_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/get_output_excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_output_excel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/optimization_solar.py" beforeDir="false" afterPath="$PROJECT_DIR$/optimization_solar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,9 +198,9 @@
       <screen x="52" y="25" width="1740" height="1095" />
     </state>
     <state width="1430" height="171" key="GridCell.Tab.0.right/52.25.1740.1095@52.25.1740.1095" timestamp="1629681743191" />
-    <state x="482" y="188" key="SettingsEditor" timestamp="1629766419848">
+    <state x="482" y="188" key="SettingsEditor" timestamp="1629767610753">
       <screen x="52" y="25" width="1740" height="1095" />
     </state>
-    <state x="482" y="188" key="SettingsEditor/52.25.1740.1095@52.25.1740.1095" timestamp="1629766419848" />
+    <state x="482" y="188" key="SettingsEditor/52.25.1740.1095@52.25.1740.1095" timestamp="1629767610753" />
   </component>
 </project>

@@ -3,7 +3,6 @@ import numpy as np
 import cvxpy as cp
 from distutils.util import strtobool
 
-from energyimpact.controller.rule_based_dt import run_rule_based_dt
 
 """
 

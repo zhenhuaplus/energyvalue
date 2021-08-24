@@ -1,4 +1,5 @@
 import numpy as np
+import numpy_financial as npf
 
 
 def calculate_irr(config, energy_saving_per_day, demand_saving_per_month):
@@ -101,7 +102,7 @@ def calculate_irr(config, energy_saving_per_day, demand_saving_per_month):
     sub_cash_flow = [project_investment_cost] + list(sub_cash_flow)
 
     # IRR calculations
-    full_irr = np.irr(full_cash_flow)
-    sub_irr = np.irr(sub_cash_flow)
+    full_irr = npf.irr(full_cash_flow)
+    sub_irr = npf.irr(sub_cash_flow)
 
     return full_irr, sub_irr
