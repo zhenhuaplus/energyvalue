@@ -62,8 +62,6 @@ dependencies:
   - xlrd=1.2.0=py_0
   - zipp=3.4.0=pyhd3eb1b0_0
   - pip:
-    - libgfortran=3.0.1
-    - appnope=0.1.0
     - libsodium=1.0.18
     - osqp=0.6.1
     - ncurses=6.2
