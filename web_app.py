@@ -25,7 +25,7 @@ def get_table_download_link(df, file_name, button_name):
     out: href string
     """
     csv = df.to_csv(index=False, encoding='utf_8_sig')
-    b64 = base64.b64encode(csv.encode('utf-8')).decode('utf-8')  # some strings <-> bytes conversions necessary here
+    b64 = base64.b64encode(csv.encode('utf_8_sig')).decode('utf_8_sig')  # some strings <-> bytes conversions necessary here
     return f'<a href="data:file/csv;base64,{b64}" download="{file_name}.csv">{button_name}</a>'
 
 
