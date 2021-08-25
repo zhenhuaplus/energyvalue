@@ -106,7 +106,7 @@ st.markdown("**2. 负荷数据分析**")
 # Show sample dataframe
 st.info('输入数据模版参考 (确保每一列名字符合要求)')
 sample_df = pd.DataFrame({"datetime": ['3/1/20 0:00', '3/1/20 0:01', '3/1/20 0:02'],
-                          'net_load_after_pv': [192, 191, 199],
+                          'net_load_before_pv': [192, 191, 199],
                           'pv': [5, 40, 100]})
 # data_sample = pd.read_csv("templates/data_sample.csv")
 col1, col2 = st.columns((1, 2))

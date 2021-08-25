@@ -293,7 +293,7 @@ def obtain_results(config, load, tariff_dict):
         summary_df = summary_df.append(summary_list, ignore_index=True)
     else:
         summary_df = pd.DataFrame().from_dict(summary_list)
-    summary_df.to_csv(f"{dir}/summary.csv", index=False)
+    summary_df.to_csv(f"{dir}/summary.csv", index=False, encoding='utf_8_sig')
 
     with open(f"{dir}/project_params.json", 'w') as a:
         json.dump(config, a)
