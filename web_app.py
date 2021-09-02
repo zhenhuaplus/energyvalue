@@ -49,10 +49,13 @@ def plot_load_data(load_data_df, mandarin=True):
     load_data_df['date'] = pd.to_datetime(load_data_df['datetime']).map(lambda x: x.date())
     load_data_df['time'] = pd.to_datetime(load_data_df['datetime']).dt.time
 
-    hourly_average = load_data_df[['time', 'net_load_before_pv']].groupby(by=['time']).mean().reset_index()
     clustering_results, fig = run_unsupervised(load_data_df)
-    is_workday = clustering_results["labels"]
-    hourly_average['is_workday'] = is_workday.map(lambda x: "工作日负荷" if x == 1 else "非工作日负荷")
+    workday_date_list = clustering_results[clustering_results["labels"] == 1]["date"]
+
+    load_data_df["is_workday"] = load_data_df['date'].map(lambda x: "工作日负荷" if x in workday_date_list else "非工作日负荷")
+
+    hourly_average = load_data_df[['is_workday', 'time', 'net_load_before_pv']].groupby(by=['time']).mean().reset_index()
+    hourly_average['is_workday'] = clustering_results["labels"].map(lambda x: "工作日负荷" if x == 1 else "非工作日负荷")
 
     hourly_pv_average = load_data_df[['time', 'pv']].groupby(by=['time']).mean().reset_index()
     fig_b = px.line(hourly_average, x='time', y='net_load_before_pv', color='is_workday', labels={"is_workday": "Legend"})
