@@ -31,7 +31,7 @@ def run_unsupervised(load, cluster_size=2, clustering_method='KMeans'):
     clustering_results[clustering_results["labels"] == max_cluster_average_label]["labels"] = "workday"
     clustering_results[clustering_results["labels"] != max_cluster_average_label]["labels"] = "non-workday"
     clustering_results[clustering_results["labels"] == "workday"]["labels"] = 1
-    clustering_results[clustering_results["labels"] != "non-workday"]["labels"] = 0
+    clustering_results[clustering_results["labels"] == "non-workday"]["labels"] = 0
 
     # Plot results
     fig = go.Figure()
