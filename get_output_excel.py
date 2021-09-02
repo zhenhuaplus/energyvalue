@@ -205,7 +205,7 @@ def obtain_results(config, load, tariff_dict):
                              ['normal'] / project_params['one_way_efficiency'])
         complete_2cd = 1 if (storage_per_kWh_revenue -
                              revenue_threshold) >= - 0.001 else 0
-        is_workday = clustering_results[clustering_results["date"] == day]["labels"][0]
+        is_workday = clustering_results.loc[clustering_results["date"] == day, "labels"].values[0]
 
         op = pd.DataFrame([[day, pv_params['simulate_pv'], pv_params['solar_to_battery'],
                             pv_params['solar_to_battery_purchase_price'],
