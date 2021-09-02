@@ -7,6 +7,7 @@ import os
 from distutils.util import strtobool
 
 from get_output_excel import obtain_results
+from load_analysis_clustering import run_unsupervised
 
 from plotly import graph_objs as go
 import plotly.express as px
@@ -47,11 +48,13 @@ def plot_load_data(load_data_df, mandarin=True):
     # Figure for hourly averages
     load_data_df['date'] = pd.to_datetime(load_data_df['datetime']).map(lambda x: x.date())
     load_data_df['time'] = pd.to_datetime(load_data_df['datetime']).dt.time
-    load_data_df['is_weekend'] = load_data_df['date'].map(lambda x: x.isoweekday() >= 5)
-    hourly_average = load_data_df[['is_weekend', 'time', 'net_load_before_pv']].groupby(
-        by=['is_weekend', 'time']).mean().reset_index()
-    hourly_average['is_weekend'] = hourly_average['is_weekend'].map(lambda x: "非工作日负荷" if x else "工作日负荷")
-    hourly_pv_average = load_data_df[['is_weekend', 'time', 'pv']].groupby(by=['time']).mean().reset_index()
+
+    hourly_average = load_data_df[['is_weekend', 'time', 'net_load_before_pv']].groupby(by=['time']).mean().reset_index()
+    clustering_results, fig = run_unsupervised(load_data_df)
+    is_workday = clustering_results["labels"]
+    hourly_average['is_workday'] = is_workday.map(lambda x: "工作日负荷" if 1 else "非工作日负荷")
+
+    hourly_pv_average = load_data_df[['time', 'pv']].groupby(by=['time']).mean().reset_index()
     fig_b = px.line(hourly_average, x='time', y='net_load_before_pv', color='is_weekend', labels={"is_weekend": "Legend"})
     fig_b.add_trace(go.Scatter(x=hourly_pv_average['time'], y=hourly_pv_average['pv'], mode='lines', name='光伏'))
     fig_b.update_layout(title="全年每天负荷小时平均", yaxis_title="功率 (kW)", xaxis_title="Hour of day")

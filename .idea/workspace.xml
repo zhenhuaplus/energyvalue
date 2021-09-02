@@ -19,7 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3d0dff2-7648-4596-b3da-f921980aa650" name="Default Changelist" comment="" />
+    <list default="true" id="f3d0dff2-7648-4596-b3da-f921980aa650" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/ei_pre.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ei_pre.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/get_output_excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_output_excel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_app.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,7 +62,7 @@
       <recent name="$PROJECT_DIR$/data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_get_output_excel">
+  <component name="RunManager" selected="Python.load_analysis_clustering">
     <configuration name="get_output_excel" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ei_pre" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -69,6 +76,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/get_output_excel.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="load_analysis_clustering" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ei_pre" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/load_analysis_clustering.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -142,6 +170,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.load_analysis_clustering" />
         <item itemvalue="Python.test_get_output_excel" />
         <item itemvalue="Python.test_financial_analysis" />
         <item itemvalue="Python.web_app" />
@@ -173,25 +202,29 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1430" height="171" key="GridCell.Tab.0.bottom" timestamp="1629681743191">
+    <state x="725" y="403" key="#Notifications" timestamp="1630558734662">
       <screen x="52" y="25" width="1740" height="1095" />
     </state>
-    <state width="1430" height="171" key="GridCell.Tab.0.bottom/52.25.1740.1095@52.25.1740.1095" timestamp="1629681743191" />
-    <state width="1430" height="171" key="GridCell.Tab.0.center" timestamp="1629681743191">
+    <state x="725" y="403" key="#Notifications/52.25.1740.1095@52.25.1740.1095" timestamp="1630558734662" />
+    <state width="1395" height="220" key="GridCell.Tab.0.bottom" timestamp="1630560770260">
       <screen x="52" y="25" width="1740" height="1095" />
     </state>
-    <state width="1430" height="171" key="GridCell.Tab.0.center/52.25.1740.1095@52.25.1740.1095" timestamp="1629681743191" />
-    <state width="1430" height="171" key="GridCell.Tab.0.left" timestamp="1629681743190">
+    <state width="1395" height="220" key="GridCell.Tab.0.bottom/52.25.1740.1095@52.25.1740.1095" timestamp="1630560770260" />
+    <state width="1395" height="220" key="GridCell.Tab.0.center" timestamp="1630560770259">
       <screen x="52" y="25" width="1740" height="1095" />
     </state>
-    <state width="1430" height="171" key="GridCell.Tab.0.left/52.25.1740.1095@52.25.1740.1095" timestamp="1629681743190" />
-    <state width="1430" height="171" key="GridCell.Tab.0.right" timestamp="1629681743191">
+    <state width="1395" height="220" key="GridCell.Tab.0.center/52.25.1740.1095@52.25.1740.1095" timestamp="1630560770259" />
+    <state width="1395" height="220" key="GridCell.Tab.0.left" timestamp="1630560770259">
       <screen x="52" y="25" width="1740" height="1095" />
     </state>
-    <state width="1430" height="171" key="GridCell.Tab.0.right/52.25.1740.1095@52.25.1740.1095" timestamp="1629681743191" />
-    <state x="482" y="188" key="SettingsEditor" timestamp="1629773988102">
+    <state width="1395" height="220" key="GridCell.Tab.0.left/52.25.1740.1095@52.25.1740.1095" timestamp="1630560770259" />
+    <state width="1395" height="220" key="GridCell.Tab.0.right" timestamp="1630560770260">
       <screen x="52" y="25" width="1740" height="1095" />
     </state>
-    <state x="482" y="188" key="SettingsEditor/52.25.1740.1095@52.25.1740.1095" timestamp="1629773988102" />
+    <state width="1395" height="220" key="GridCell.Tab.0.right/52.25.1740.1095@52.25.1740.1095" timestamp="1630560770260" />
+    <state x="480" y="266" key="SettingsEditor" timestamp="1630559328101">
+      <screen x="52" y="25" width="1740" height="1095" />
+    </state>
+    <state x="480" y="266" key="SettingsEditor/52.25.1740.1095@52.25.1740.1095" timestamp="1630559328101" />
   </component>
 </project>

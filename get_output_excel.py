@@ -9,6 +9,7 @@ import datetime
 from financial_analysis import calculate_irr
 from rule_based import run_rule_based, logger
 from optimization_solar import run_optimization
+from load_analysis_clustering import run_unsupervised
 
 pd.set_option('mode.chained_assignment', None)
 
@@ -202,6 +203,9 @@ def obtain_results(config, load, tariff_dict):
         complete_2cd = 1 if (storage_per_kWh_revenue -
                              revenue_threshold) >= - 0.001 else 0
 
+        clustering_results, fig = run_unsupervised(load)
+        is_workday = clustering_results["labels"]
+
         op = pd.DataFrame([[day, pv_params['simulate_pv'], pv_params['solar_to_battery'],
                             pv_params['solar_to_battery_purchase_price'],
                             pv_params['pv_capacity'], project_params['battery_size_kWh'],
@@ -221,7 +225,8 @@ def obtain_results(config, load, tariff_dict):
                             min_net_load_after_pv_8_10, min_net_load_after_pv_8_12,
                             min_net_load_after_pv_17_21, total_pv_production_kWh,
                             storage_per_kWh_revenue, complete_2cd,
-                            0 if day.weekday() >= 5 else 1
+                            is_workday
+                            # 0 if day.weekday() >= 5 else 1
                             ]],
                           columns=col_list)
         output_excel = output_excel.append(op, ignore_index=True)
