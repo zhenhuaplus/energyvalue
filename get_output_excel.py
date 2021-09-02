@@ -50,8 +50,8 @@ def obtain_results(config, load, tariff_dict):
 
     output_file_prefix = f"{config['mode']}_pv_{pv_params['simulate_pv']}_solar_to_battery_{pv_params['solar_to_battery']}_{project_params['battery_size_kWh']}kWh_{project_params['battery_power_kW']}kW.csv"
 
+    load = load.sort_values(by="datetime")
     clustering_results, fig = run_unsupervised(load)
-    is_workday = clustering_results["labels"]
 
     load["datetime"] = pd.to_datetime(load["datetime"])
     load = load.set_index("datetime")
@@ -205,6 +205,7 @@ def obtain_results(config, load, tariff_dict):
                              ['normal'] / project_params['one_way_efficiency'])
         complete_2cd = 1 if (storage_per_kWh_revenue -
                              revenue_threshold) >= - 0.001 else 0
+        is_workday = clustering_results[clustering_results["date"] == day]["labels"]
 
         op = pd.DataFrame([[day, pv_params['simulate_pv'], pv_params['solar_to_battery'],
                             pv_params['solar_to_battery_purchase_price'],
@@ -225,8 +226,8 @@ def obtain_results(config, load, tariff_dict):
                             min_net_load_after_pv_8_10, min_net_load_after_pv_8_12,
                             min_net_load_after_pv_17_21, total_pv_production_kWh,
                             storage_per_kWh_revenue, complete_2cd,
-                            # is_workday
-                            0 if day.weekday() >= 5 else 1
+                            is_workday
+                            # 0 if day.weekday() >= 5 else 1
                             ]],
                           columns=col_list)
         output_excel = output_excel.append(op, ignore_index=True)
