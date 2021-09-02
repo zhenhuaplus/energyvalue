@@ -52,7 +52,7 @@ def obtain_results(config, load, tariff_dict):
 
     clustering_results, fig = run_unsupervised(load)
     is_workday = clustering_results["labels"]
-    
+
     load["datetime"] = pd.to_datetime(load["datetime"])
     load = load.set_index("datetime")
     load_resolution = int((load.index[1] - load.index[0]).seconds / 60)
@@ -225,8 +225,8 @@ def obtain_results(config, load, tariff_dict):
                             min_net_load_after_pv_8_10, min_net_load_after_pv_8_12,
                             min_net_load_after_pv_17_21, total_pv_production_kWh,
                             storage_per_kWh_revenue, complete_2cd,
-                            is_workday
-                            # 0 if day.weekday() >= 5 else 1
+                            # is_workday
+                            0 if day.weekday() >= 5 else 1
                             ]],
                           columns=col_list)
         output_excel = output_excel.append(op, ignore_index=True)
