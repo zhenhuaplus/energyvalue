@@ -50,12 +50,12 @@ def obtain_results(config, load, tariff_dict):
 
     output_file_prefix = f"{config['mode']}_pv_{pv_params['simulate_pv']}_solar_to_battery_{pv_params['solar_to_battery']}_{project_params['battery_size_kWh']}kWh_{project_params['battery_power_kW']}kW.csv"
 
+    clustering_results, fig = run_unsupervised(load)
+    is_workday = clustering_results["labels"]
+    
     load["datetime"] = pd.to_datetime(load["datetime"])
     load = load.set_index("datetime")
     load_resolution = int((load.index[1] - load.index[0]).seconds / 60)
-
-    clustering_results, fig = run_unsupervised(load)
-    is_workday = clustering_results["labels"]
 
     if 'pv' in load.columns:
         pv = pd.DataFrame(load['pv'])
