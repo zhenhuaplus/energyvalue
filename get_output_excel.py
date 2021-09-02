@@ -54,6 +54,9 @@ def obtain_results(config, load, tariff_dict):
     load = load.set_index("datetime")
     load_resolution = int((load.index[1] - load.index[0]).seconds / 60)
 
+    clustering_results, fig = run_unsupervised(load)
+    is_workday = clustering_results["labels"]
+
     if 'pv' in load.columns:
         pv = pd.DataFrame(load['pv'])
     else:
@@ -202,9 +205,6 @@ def obtain_results(config, load, tariff_dict):
                              ['normal'] / project_params['one_way_efficiency'])
         complete_2cd = 1 if (storage_per_kWh_revenue -
                              revenue_threshold) >= - 0.001 else 0
-
-        clustering_results, fig = run_unsupervised(load)
-        is_workday = clustering_results["labels"]
 
         op = pd.DataFrame([[day, pv_params['simulate_pv'], pv_params['solar_to_battery'],
                             pv_params['solar_to_battery_purchase_price'],
