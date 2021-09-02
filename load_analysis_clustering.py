@@ -48,7 +48,7 @@ def run_unsupervised(load, cluster_size=2, clustering_method='KMeans'):
 
     return clustering_results, fig
 
-test = pd.read_csv("/Users/zhenhua/Documents/EnergyValue_v2/data/sample_data/jingleng_metering.csv")
-clustering_results, fig = run_unsupervised(test)
-fig.show()
-print(clustering_results)
+# test = pd.read_csv("/Users/zhenhua/Documents/EnergyValue_v2/data/sample_data/jingleng_metering.csv")
+# clustering_results, fig = run_unsupervised(test)
+# fig.show()
+# print(clustering_results)
