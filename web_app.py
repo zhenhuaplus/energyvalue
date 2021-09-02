@@ -52,7 +52,7 @@ def plot_load_data(load_data_df, mandarin=True):
     hourly_average = load_data_df[['time', 'net_load_before_pv']].groupby(by=['time']).mean().reset_index()
     clustering_results, fig = run_unsupervised(load_data_df)
     is_workday = clustering_results["labels"]
-    hourly_average['is_workday'] = is_workday.map(lambda x: "工作日负荷" if 1 else "非工作日负荷")
+    hourly_average['is_workday'] = is_workday.map(lambda x: "工作日负荷" if x == 1 else "非工作日负荷")
 
     hourly_pv_average = load_data_df[['time', 'pv']].groupby(by=['time']).mean().reset_index()
     fig_b = px.line(hourly_average, x='time', y='net_load_before_pv', color='is_workday', labels={"is_workday": "Legend"})
