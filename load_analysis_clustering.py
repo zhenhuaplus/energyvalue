@@ -26,9 +26,8 @@ def run_unsupervised(load, cluster_size=2, clustering_method='KMeans'):
     clustering_results['labels'] = clustering_model.labels_
     cluster_average = [np.mean(clustering_model.cluster_centers_[j]) for j in range(cluster_size)]
     max_cluster_average_index = np.array(cluster_average).argmax()
-    max_cluster_average_label = cluster_size[max_cluster_average_index]
-    clustering_results[clustering_results["labels"] == max_cluster_average_label]["labels"] = "workday"
-    clustering_results[clustering_results["labels"] != max_cluster_average_label]["labels"] = "non-workday"
+    clustering_results[clustering_results["labels"] == max_cluster_average_index]["labels"] = "workday"
+    clustering_results[clustering_results["labels"] != max_cluster_average_index]["labels"] = "non-workday"
     clustering_results[clustering_results["labels"] == "workday"]["labels"] = 1
     clustering_results[clustering_results["labels"] == "non-workday"]["labels"] = 0
 
