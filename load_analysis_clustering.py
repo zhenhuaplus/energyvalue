@@ -43,7 +43,7 @@ def run_unsupervised(load, cluster_size=2, clustering_method='KMeans'):
                                  line=dict(color=colors_light[label], width=2, dash='dash')))
     for j in range(cluster_size):
         fig.add_trace(go.Scatter(x=pivoted_day.columns, y=clustering_model.cluster_centers_[j], mode='lines',
-                                 name='Cluster ' + str(j) + ' Centroid',
+                                 name=["非工作日负荷", "工作日负荷"][j],
                                  line=dict(color=colors_dark[j], width=2)))
 
     return clustering_results, fig
