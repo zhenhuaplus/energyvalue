@@ -24,7 +24,6 @@ def run_unsupervised(load, cluster_size=2, clustering_method='KMeans'):
     clustering_results = pd.DataFrame()
     clustering_results['date'] = [x for x in pivoted_day.index]
     clustering_results['labels'] = clustering_model.labels_
-
     cluster_average = [clustering_model.cluster_centers_[j] for j in range(cluster_size)]
     max_cluster_average_index = np.array(cluster_average).argmax()
     max_cluster_average_label = clustering_model.labels_[max_cluster_average_index]

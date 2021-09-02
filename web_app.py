@@ -48,6 +48,7 @@ def plot_load_data(load_data_df, mandarin=True):
     # Figure for hourly averages
     load_data_df['date'] = pd.to_datetime(load_data_df['datetime']).map(lambda x: x.date())
     load_data_df['time'] = pd.to_datetime(load_data_df['datetime']).dt.time
+    load_data_df = load_data_df.sort_values(by="date")
     hourly_pv_average = load_data_df[['time', 'pv']].groupby(by=['time']).mean().reset_index()
 
     clustering_results, fig_b = run_unsupervised(load_data_df)
