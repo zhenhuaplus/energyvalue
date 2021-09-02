@@ -252,7 +252,7 @@ def obtain_results(config, load, tariff_dict):
         summary = {
             '储能规模kWh': project_params['battery_size_kWh'],
             '储能功率kW': project_params['battery_power_kW'],
-            '是否工作日': "工作日" if name == 1 else "休息日",
+            '是否工作日': "工作日" if name == 1 else "非工作日",
             '总天数': current_results.shape[0],
 
             # '完成两充两放': np.sum(current_results['2cd_complete']),
