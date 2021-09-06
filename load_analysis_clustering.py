@@ -17,19 +17,19 @@ def run_unsupervised(load, cluster_size=2, clustering_method='KMeans'):
     if clustering_method == 'KMeans':
         clustering_model = KMeans(n_clusters=cluster_size, random_state=1).fit(pivoted_day)
 
-    colors_light = ['#F7CEC5', '#AED6F1', '#BE94F2', '#D5F5E3']
-    colors_dark = ['#A93226', '#2E86C1', '#7D3C98', '#239B56']
+    colors_light = ['#AED6F1', '#F7CEC5', '#BE94F2', '#D5F5E3']
+    colors_dark = ['#2E86C1', '#A93226', '#7D3C98', '#239B56']
 
     # Store model and clustering results
     clustering_results = pd.DataFrame()
     clustering_results['date'] = [x for x in pivoted_day.index]
     clustering_results['labels'] = clustering_model.labels_
     cluster_average = [np.mean(clustering_model.cluster_centers_[j]) for j in range(cluster_size)]
-    max_cluster_average_index = np.array(cluster_average).argmax()
-    clustering_results[clustering_results["labels"] == max_cluster_average_index]["labels"] = "workday"
-    clustering_results[clustering_results["labels"] != max_cluster_average_index]["labels"] = "non-workday"
-    clustering_results[clustering_results["labels"] == "workday"]["labels"] = 1
-    clustering_results[clustering_results["labels"] == "non-workday"]["labels"] = 0
+    max_cluster_average_index = int(np.array(cluster_average).argmax().item())
+    clustering_results["labels"] = clustering_results["labels"].map(lambda x:
+                                                                    "workday" if x == max_cluster_average_index
+                                                                    else "non-workday")
+    clustering_results["labels"] = clustering_results["labels"].map(lambda x: 1 if x == "workday" else 0)
 
     # Plot results
     fig = go.Figure()
@@ -39,9 +39,12 @@ def run_unsupervised(load, cluster_size=2, clustering_method='KMeans'):
                                  name=str(pivoted_day.index[i]), showlegend=False,
                                  line=dict(color=colors_light[label], width=2, dash='dash')))
     for j in range(cluster_size):
-        fig.add_trace(go.Scatter(x=pivoted_day.columns, y=clustering_model.cluster_centers_[j], mode='lines',
-                                 name=["非工作日负荷", "工作日负荷"][j],
-                                 line=dict(color=colors_dark[j], width=2)))
+        if j == max_cluster_average_index:
+            fig.add_trace(go.Scatter(x=pivoted_day.columns, y=clustering_model.cluster_centers_[j], mode='lines',
+                                     name="工作日负荷", line=dict(color=colors_dark[1], width=2)))
+        else:
+            fig.add_trace(go.Scatter(x=pivoted_day.columns, y=clustering_model.cluster_centers_[j], mode='lines',
+                                     name="非工作日负荷", line=dict(color=colors_dark[0], width=2)))
 
     return clustering_results, fig
 

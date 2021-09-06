@@ -25,7 +25,7 @@ def get_table_download_link(df, file_name, button_name):
     in:  dataframe
     out: href string
     """
-    csv = df.to_csv(index=False, encoding='utf_8_sig')
+    csv = df.to_csv(index=True, encoding='utf_8_sig')
     b64 = base64.b64encode(csv.encode('utf_8_sig')).decode('utf_8_sig')  # some strings <-> bytes conversions necessary here
     return f'<a href="data:file/csv;base64,{b64}" download="{file_name}.csv">{button_name}</a>'
 
@@ -48,12 +48,13 @@ def plot_load_data(load_data_df, mandarin=True):
     # Figure for hourly averages
     load_data_df['date'] = pd.to_datetime(load_data_df['datetime']).map(lambda x: x.date())
     load_data_df['time'] = pd.to_datetime(load_data_df['datetime']).dt.time
-    load_data_df = load_data_df.sort_values(by="date")
+    load_data_df = load_data_df.sort_values(by="datetime")
     hourly_pv_average = load_data_df[['time', 'pv']].groupby(by=['time']).mean().reset_index()
 
     clustering_results, fig_b = run_unsupervised(load_data_df)
 
-    fig_b.add_trace(go.Scatter(x=hourly_pv_average['time'], y=hourly_pv_average['pv'], mode='lines', name='光伏'))
+    fig_b.add_trace(go.Scatter(x=hourly_pv_average['time'], y=hourly_pv_average['pv'], mode='lines',
+                               name='光伏', line=dict(color="yellow")))
     fig_b.update_layout(title="全年每天负荷小时平均", yaxis_title="功率 (kW)", xaxis_title="Hour of day")
     figs.append(fig_b)
 
@@ -75,8 +76,10 @@ def plot_tariff_data(tariff_dict, mandarin=True):
     tariff = pd.DataFrame()
     tariff['hour'] = [i for i in range(24)]
     tariff['energy_charge_type'] = tariff['hour'].map(lambda x: tariff_dict['energy_charge']['hours'][str(x)])
+    tariff['阶梯电价'] = tariff['energy_charge_type'].map(lambda x:
+                                                                    {"peak": "峰", "normal": "平", "valley": "谷"}[x])
     tariff['energy_charge'] = tariff['energy_charge_type'].map(lambda x: tariff_dict['energy_charge']['price'][x])
-    fig = px.bar(tariff, x='hour', y='energy_charge', color='energy_charge_type', text='energy_charge')
+    fig = px.bar(tariff, x='hour', y='energy_charge', color='阶梯电价', text='energy_charge')
     fig.update_layout(title="电价信息", yaxis_title="电度电费 (元/kWh)", xaxis_title="小时")
 
     return fig

@@ -299,7 +299,10 @@ def obtain_results(config, load, tariff_dict):
         summary_df = summary_df.append(summary_list, ignore_index=True)
     else:
         summary_df = pd.DataFrame().from_dict(summary_list)
-    summary_df.to_csv(f"{dir}/summary.csv", index=False, encoding='utf_8_sig')
+    summary_df["是否工作日"] = pd.Categorical(summary_df["是否工作日"], categories=["工作日", "非工作日"], ordered=True)
+    summary_df = summary_df.sort_values("是否工作日")
+    summary_df = summary_df.set_index("是否工作日")
+    summary_df.to_csv(f"{dir}/summary.csv", index=True, encoding='utf_8_sig')
 
     with open(f"{dir}/project_params.json", 'w') as a:
         json.dump(config, a)
