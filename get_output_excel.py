@@ -184,10 +184,9 @@ def obtain_results(config, load, tariff_dict):
             demand_saving_per_month=storage_demand_saving,
         )
 
-        max_net_load_after_pv_0_8 = results.loc[results.index.hour < 8, 'net_load_after_pv'].max(
-        )
+        max_net_load_after_pv_0_8 = results.loc[results.index.hour < 8, 'net_load_after_pv'].mean()
         max_net_load_after_pv_12_17 = results.loc[(results.index.hour > 12) & (
-                results.index.hour <= 17), 'net_load_after_pv'].max()
+                results.index.hour <= 17), 'net_load_after_pv'].mean()
         min_net_load_after_pv_8_10 = results.loc[(results.index.hour > 8) & (
                 results.index.hour <= 10), 'net_load_after_pv'].min()
         min_net_load_after_pv_8_12 = results.loc[(results.index.hour > 8) & (
