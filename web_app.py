@@ -15,7 +15,7 @@ import plotly.express as px
 st.set_page_config(page_title="EnergyValue", page_icon=":zap:")
 st.title("EnergyValue V2.0")
 
-st.markdown("储能系统负荷分析及收益测算工具 - 于2021年8月24日更新")
+st.markdown("储能系统负荷分析及收益测算工具 - 于2021年9月6日更新")
 st.text("")
 st.text("")
 
