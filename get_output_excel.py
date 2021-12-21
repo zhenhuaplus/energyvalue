@@ -110,21 +110,19 @@ def obtain_results(config, load, tariff_dict):
         daily_pv.index = daily_load_before_pv.index
         daily_pv.columns = daily_load_before_pv.columns
 
-        if config['mode'] == "2cd":
+        if config['mode'] in ["1cd", "2cd"]:
             results = run_rule_based(daily_load_before_pv=daily_load_before_pv,
                                      pv=daily_pv,
                                      project_params=project_params,
                                      tariff_dict=tariff_dict,
-                                     pv_params=pv_params)
-
+                                     pv_params=pv_params,
+                                     simulate_mode=config['mode'])
         elif config['mode'] == "opt":
-            results = run_optimization(
-                daily_load_before_pv=daily_load_before_pv,
-                pv=daily_pv,
-                project_params=project_params,
-                tariff_dict=tariff_dict,
-                pv_params=pv_params
-            )
+            results = run_optimization(daily_load_before_pv=daily_load_before_pv,
+                                       pv=daily_pv,
+                                       project_params=project_params,
+                                       tariff_dict=tariff_dict,
+                                       pv_params=pv_params)
 
         else:
             logger.error("Mode not defined")

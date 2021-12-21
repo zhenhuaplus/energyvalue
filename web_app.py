@@ -13,9 +13,9 @@ from plotly import graph_objs as go
 import plotly.express as px
 
 st.set_page_config(page_title="EnergyValue", page_icon=":zap:")
-st.title("EnergyValue V2.3")
+st.title("EnergyValue V2.4.0")
 
-st.markdown("储能系统负荷分析及收益测算工具 - 于2021年12月3日更新")
+st.markdown("储能系统负荷分析及收益测算工具 - 于2021年12月21日更新")
 st.text("")
 st.text("")
 
@@ -155,8 +155,13 @@ if secure:
                                                  min_value=0.0, max_value=100.0, value=92.0, step=0.1) / 100
             battery_degradation_rate = st.number_input("电池每年衰减率 (%)",
                                                        min_value=0.0, max_value=5.0, value=3.0, step=0.1) / 100
-            simulate_mode = st.selectbox("储能运行策略", ["两充两放基本控制", "需量优化"], 0)
-            simulate_mode = "2cd" if simulate_mode == "两充两放基本控制" else "opt"
+            simulate_mode = st.selectbox("储能运行策略", ["两充两放基本控制", "一充一放基本控制", "需量优化"], 0)
+            if simulate_mode == "两充两放基本控制":
+                simulate_mode = "2cd"
+            elif simulate_mode == "一充一放基本控制":
+                simulate_mode = "1cd"
+            else:
+                simulate_mode = "opt"
     st.text("")
     st.text("")
 

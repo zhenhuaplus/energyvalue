@@ -63,11 +63,7 @@ def get_tariff(tariff_dict, load):
     return tariff
 
 
-def get_battery_power(
-    current_hour,
-    tariff_dict,
-    **kwargs
-):
+def get_battery_power(current_hour, tariff_dict, simulate_mode, **kwargs):
     logger.debug("obtaining battery power")
     rules = defaultdict(list)
     {rules[v].append(k)
@@ -75,23 +71,41 @@ def get_battery_power(
     rules = dict(rules)
     logger.debug(f"rules = {rules}")
     logger.debug(kwargs)
-    if str(current_hour) in rules['valley'] + rules['normal']:
-        logger.debug(f"trying to charge for hour {current_hour}")
-        if current_hour >= 21:
-            battery_power = 0
+    if simulate_mode == "2cd":
+        if str(current_hour) in rules['valley'] + rules['normal']:
+            logger.debug(f"trying to charge for hour {current_hour}")
+            if current_hour >= 21:
+                battery_power = 0
+            else:
+                battery_power = charge(**kwargs)
+        elif str(current_hour) in rules['peak']:
+            logger.debug(f"trying to discharge for hour {current_hour}")
+            battery_power = discharge(**kwargs)
         else:
-            battery_power = charge(**kwargs)
-    elif str(current_hour) in rules['peak']:
-        logger.debug(f"trying to discharge for hour {current_hour}")
-        battery_power = discharge(**kwargs)
+            logger.debug(f"hour {current_hour} not in rules")
+            battery_power = 0
+        logger.debug(f"returning battery power {battery_power}")
+    elif simulate_mode == "1cd":
+        if str(current_hour) in rules['valley']:
+            logger.debug(f"trying to charge for hour {current_hour}")
+            if current_hour >= 21:
+                battery_power = 0
+            else:
+                battery_power = charge(**kwargs)
+        elif str(current_hour) in rules['peak']:
+            logger.debug(f"trying to discharge for hour {current_hour}")
+            battery_power = discharge(**kwargs)
+        else:
+            logger.debug(f"hour {current_hour} not in rules")
+            battery_power = 0
+        logger.debug(f"returning battery power {battery_power}")
     else:
-        logger.debug(f"hour {current_hour} not in rules")
-        battery_power = 0
-    logger.debug(f"returning battery power {battery_power}")
+        logger.error("Mode not defined")
+
     return battery_power
 
 
-def run_rule_based(daily_load_before_pv, pv, project_params, tariff_dict, pv_params):
+def run_rule_based(daily_load_before_pv, pv, project_params, tariff_dict, pv_params, simulate_mode):
     load_resolution = int(
         (daily_load_before_pv.index[1] - daily_load_before_pv.index[0]).seconds/60)
     results = pd.DataFrame(np.zeros((daily_load_before_pv.shape[0], 9)), index=daily_load_before_pv.index, columns=[
@@ -145,13 +159,13 @@ def run_rule_based(daily_load_before_pv, pv, project_params, tariff_dict, pv_par
         results.loc[index, 'battery_power'] = get_battery_power(
             current_hour=current_hour,
             tariff_dict=tariff_dict,
+            simulate_mode=simulate_mode,
             max_charge_rate_per_step=max_charge_rate_per_step,
             max_discharge_rate_per_step=max_discharge_rate_per_step,
             battery_power=project_params['battery_power_kW'],
             transformer_capacity=project_params['transformer_capacity'],
             current_load=current_load,
-            solar_to_battery=max_solar_to_battery.loc[index,
-                                                      'solar_to_battery']
+            solar_to_battery=max_solar_to_battery.loc[index, 'solar_to_battery']
         )
 
         if results.loc[index, 'battery_power'] >= 0:
