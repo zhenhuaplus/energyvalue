@@ -1,0 +1,44 @@
+{
+
+	"energy_charge": {
+		"hours": {
+			"0": "valley",
+			"1": "valley",
+			"2": "valley",
+			"3": "valley",
+			"4": "valley",
+			"5": "valley",
+			"6": "valley",
+			"7": "valley",
+			"8": "peak",
+			"9": "peak",
+			"10": "peak",
+			"11": "peak",
+			"12": "normal",
+			"13": "normal",
+			"14": "normal",
+			"15": "normal",
+			"16": "normal",
+			"17": "peak",
+			"18": "peak",
+			"19": "peak",
+			"20": "peak",
+			"21": "normal",
+			"22": "normal",
+			"23": "normal"
+		},
+		"price": {
+			"peak": 1.0207,
+			"normal": 0.5968,
+			"valley": 0.2529
+		}
+
+	},
+
+	"demand_charge": {
+		"demand_rmb_per_kW_month": 40,
+		"trans_rmb_per_kVA_month": 30
+	}
+
+
+}

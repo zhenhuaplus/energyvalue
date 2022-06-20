@@ -1,5 +1,0 @@
-battery_size,battery_power,2cd_complete,0_8_days_when_exceeding_transformer_capacity,12_17_days_when_exceeding_transformer_capacity,8_10_days_when_battery_cannot_be_discharged,8_12_days_when_battery_cannot_be_discharged,17_21_days_when_battery_cannot_be_discharged,storage_per_kWh_revenue_threshold,days_with_good_energy_saving,avg_energy_saving_for_good_days,days_with_poor_energy_saving,avg_energy_saving_for_poor_days,avg_energy_saving_for_all_days,days_with_excessive_demand_saving,avg_demand_saving_for_excessive_days,days_with_low_demand_saving,avg_demand_saving_for_low_days,avg_demand_saving_for_all_days,avg_irr
-1000,250,0,0,0,0,0,0,0.9628697391304348,12,631.5383059703844,0,,631.5383059703844,12,0.0,0,,0.0,0.06775716972769999
-1500,375,0,0,0,0,0,0,0.9628697391304348,12,499.39558821676115,0,,499.39558821676115,12,0.0,0,,0.0,-0.016553015939036398
-2000,500,0,0,0,0,0,0,0.9628697391304348,12,358.68906647763083,0,,358.68906647763083,12,0.0,0,,0.0,-0.09307263147066454
-500,125,8,0,0,0,0,0,0.9628697391304347,12,473.25345894770015,0,,473.25345894770015,12,0.0,0,,0.0,0.1378028891612324
