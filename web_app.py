@@ -26,7 +26,8 @@ def get_table_download_link(df, file_name, button_name):
     out: href string
     """
     csv = df.to_csv(index=True, encoding='utf_8_sig')
-    b64 = base64.b64encode(csv.encode('utf_8_sig')).decode('utf_8_sig')  # some strings <-> bytes conversions necessary here
+    b64 = base64.b64encode(csv.encode('utf_8_sig')).decode(
+        'utf_8_sig')  # some strings <-> bytes conversions necessary here
     return f'<a href="data:file/csv;base64,{b64}" download="{file_name}.csv">{button_name}</a>'
 
 
@@ -77,7 +78,7 @@ def plot_tariff_data(tariff_dict, mandarin=True):
     tariff['hour'] = [i for i in range(24)]
     tariff['energy_charge_type'] = tariff['hour'].map(lambda x: tariff_dict['energy_charge']['hours'][str(x)])
     tariff['阶梯电价'] = tariff['energy_charge_type'].map(lambda x:
-                                                                    {"peak": "峰", "normal": "平", "valley": "谷"}[x])
+                                                      {"peak": "峰", "normal": "平", "valley": "谷"}[x])
     tariff['energy_charge'] = tariff['energy_charge_type'].map(lambda x: tariff_dict['energy_charge']['price'][x])
     fig = px.bar(tariff, x='hour', y='energy_charge', color='阶梯电价', text='energy_charge')
     fig.update_layout(title="电价信息", yaxis_title="电度电费 (元/kWh)", xaxis_title="小时")
@@ -88,34 +89,14 @@ def plot_tariff_data(tariff_dict, mandarin=True):
 # Add password
 password = st.text_input("Password", value="", type="password")
 secure = False
-if password in ["emcatzenergy"]:
+if password in ["emcatzenergy", "zenergyai"]:
     secure = True
 elif password not in [""]:
     st.error("Wrong password")
     secure = False
 
 if secure:
-    st.markdown("**1. 基本信息**")
-    col1, col2 = st.columns(2)
-    with col1:
-        project_name = st.text_input("项目名称", "自定义名称")
-        project_scope = st.selectbox("项目类型", ["新安装光伏+储能", "自带光伏, 新加储能", "只加储能"], 2)
-        simulate_pv = "True" if "光伏" in project_scope else "False"
-        project_years = int(st.slider("项目年限 (年)", 5, 20, 15))
-        ess_cost_rmb_per_kwh = int(st.number_input("储能系统造价 (元/kWh)", min_value=0, max_value=2000, value=1450, step=1))
-        count_working_days = int(st.number_input("全年工作天数 (日)", min_value=250, value=365, step=1))
-    with col2:
-        project_address = st.text_input("项目地址")
-        salvage_value_ratio = st.number_input("折旧残值比率 (%)", min_value=0, max_value=100, value=5, step=1) / 100
-        depreciation_years = int(st.slider("折旧年限 (年)", 5, 20, 15))
-        battery_degradation_per_year = st.number_input("储能系统年衰减率 (%/年)", min_value=0.0, max_value=5.0,
-                                                       value=3.0, step=0.1) / 100
-        corporate_income_tax_rate = st.number_input("企业所得税税率 (%)", min_value=0, max_value=100, value=25, step=1) / 100
-    st.text("")
-    st.text("")
-
-
-    st.markdown("**2. 负荷数据分析**")
+    st.markdown("### 负荷数据分析")
     # Show sample dataframe
     st.info('输入数据模版参考 (确保每一列名字符合要求)')
     sample_df = pd.DataFrame({"datetime": ['3/1/20 0:00', '3/1/20 0:01', '3/1/20 0:02'],
@@ -139,114 +120,127 @@ if secure:
     st.text("")
     st.text("")
 
+    st.markdown("### 输入分析参数")
+    with st.form(key='project_form'):
+        if load_data is not None:
+            st.markdown("#### 1. 基本项目参数")
+            col1, col2 = st.columns(2)
+            with col1:
+                project_name = st.text_input("项目名称", "自定义名称")
+                project_scope = st.selectbox("项目类型", ["新安装光伏+储能", "自带光伏, 新加储能", "只加储能"], 2)
+                simulate_pv = "True" if "光伏" in project_scope else "False"
+                project_years = int(st.slider("项目年限 (年)", 5, 20, 15))
+                ess_cost_rmb_per_kwh = int(
+                    st.number_input("储能系统造价 (元/kWh)", min_value=0, max_value=2000, value=1450, step=1))
+                count_working_days = int(st.number_input("全年工作天数 (日)", min_value=250, value=365, step=1))
+            with col2:
+                project_address = st.text_input("项目地址")
+                salvage_value_ratio = st.number_input("折旧残值比率 (%)", min_value=0, max_value=100, value=5, step=1) / 100
+                depreciation_years = int(st.slider("折旧年限 (年)", 5, 20, 15))
+                battery_degradation_per_year = st.number_input("储能系统年衰减率 (%/年)", min_value=0.0, max_value=5.0,
+                                                               value=3.0, step=0.1) / 100
+                corporate_income_tax_rate = st.number_input("企业所得税税率 (%)", min_value=0, max_value=100, value=25,
+                                                            step=1) / 100
+            st.text("")
+            st.text("")
 
-    if load_data is not None:
-        st.markdown("**3. 储能系统规模**")
-        col1, col2 = st.columns(2)
-        with col1:
-            # storage_size = st.number_input("500kWh-125kW数量", min_value=1, max_value=100, value=1, step=1)
-            # battery_size_kWh = storage_size * 500
-            # battery_power_kW = storage_size * 125
-            battery_size_kWh = st.number_input("储能kWh", min_value=1, max_value=10000, value=1, step=1)
-            battery_power_kW = st.number_input("储能kW", min_value=1, max_value=5000, value=1, step=1)
-            min_soc = st.number_input("最小SOC (%)", min_value=0, max_value=100, value=0, step=1) / 100
-            max_soc = st.number_input("最大SOC (%)", min_value=0, max_value=100, value=100, step=1) / 100
+            st.markdown("#### 2. 储能系统规模")
+            col1, col2 = st.columns(2)
+            with col1:
+                # storage_size = st.number_input("500kWh-125kW数量", min_value=1, max_value=100, value=1, step=1)
+                # battery_size_kWh = storage_size * 500
+                # battery_power_kW = storage_size * 125
+                battery_size_kWh = st.number_input("储能kWh", min_value=1, max_value=10000, value=1, step=1)
+                battery_power_kW = st.number_input("储能kW", min_value=1, max_value=5000, value=1, step=1)
+                min_soc = st.number_input("最小SOC (%)", min_value=0, max_value=100, value=0, step=1) / 100
+                max_soc = st.number_input("最大SOC (%)", min_value=0, max_value=100, value=100, step=1) / 100
 
-        with col2:
-            one_way_efficiency = st.number_input("电池单程效率 (%)",
-                                                 min_value=0.0, max_value=100.0, value=92.0, step=0.1) / 100
-            battery_degradation_rate = st.number_input("电池每年衰减率 (%)",
-                                                       min_value=0.0, max_value=5.0, value=3.0, step=0.1) / 100
-            simulate_mode = st.selectbox("储能运行策略", ["两充两放基本控制", "一充一放基本控制", "需量优化"], 0)
-            if simulate_mode == "两充两放基本控制":
-                simulate_mode = "2cd"
-            elif simulate_mode == "一充一放基本控制":
-                simulate_mode = "1cd"
-            else:
-                simulate_mode = "opt"
-    st.text("")
-    st.text("")
+            with col2:
+                one_way_efficiency = st.number_input("电池单程效率 (%)",
+                                                     min_value=0.0, max_value=100.0, value=92.0, step=0.1) / 100
+                battery_degradation_rate = st.number_input("电池每年衰减率 (%)",
+                                                           min_value=0.0, max_value=5.0, value=3.0, step=0.1) / 100
+                simulate_mode = st.selectbox("储能运行策略", ["两充两放基本控制", "一充一放基本控制", "需量优化"], 0)
+                if simulate_mode == "两充两放基本控制":
+                    simulate_mode = "2cd"
+                elif simulate_mode == "一充一放基本控制":
+                    simulate_mode = "1cd"
+                else:
+                    simulate_mode = "opt"
+            st.text("")
+            st.text("")
 
+            st.markdown("#### 3. 电网接入信息")
+            col1, col2 = st.columns(2)
+            with col1:
+                tariff_choices = ["jiangsu_202101_1_10kV", "jiangsu_202101_20_35kV", "jiangsu_202101_35_110kV",
+                                  "jiangsu_202101_110_220kV", "jiangsu_202101_220kV",
+                                  "jiangsu_202101_low_1_10kV"]
+                tariff_selection = ["1~10kV", "20~35kV", "35~110kV", "110~220kV", ">220kV", "low_1~10kV"]
+                tariff_name = st.selectbox("国网进线等级 (kV, 电价依据)", tariff_selection)
+                tariff = tariff_choices[tariff_selection.index(tariff_name)] + ".json"
+                with open('./data/tariffs/' + tariff) as a:
+                    tariff_dict = json.load(a)
+                    revenue_threshold = (tariff_dict['energy_charge']['price']['peak'] * 2 * one_way_efficiency) - \
+                                        (tariff_dict['energy_charge']['price']['valley'] / one_way_efficiency) - \
+                                        (tariff_dict['energy_charge']['price']['normal'] / one_way_efficiency)
+                revenue_threshold = st.number_input("每度电电度收益最大值 (元/kWh)", min_value=revenue_threshold,
+                                                    max_value=revenue_threshold, value=revenue_threshold)
+            with col2:
+                billing_type = st.selectbox("电费计算方式", ["容量结算", "需量结算"])
+                billing_type = "transformer_capacity" if billing_type == "容量结算" else "peak_demand"
+                transformer_capacity = st.number_input("变压器容量 (kVA)", min_value=0, max_value=999999, value=999999,
+                                                       step=1)
+            tariff_fig = plot_tariff_data(tariff_dict, mandarin=True)
+            st.plotly_chart(tariff_fig, use_container_width=True)
+            st.text("")
+            st.text("")
 
-    if load_data is not None:
-        st.markdown("**4. 电网接入信息**")
-        col1, col2 = st.columns(2)
-        with col1:
-            tariff_choices = ["jiangsu_202101_1_10kV", "jiangsu_202101_20_35kV", "jiangsu_202101_35_110kV",
-                              "jiangsu_202101_110_220kV", "jiangsu_202101_220kV",
-                              "jiangsu_202101_low_1_10kV"]
-            tariff_selection = ["1~10kV", "20~35kV", "35~110kV", "110~220kV", ">220kV", "low_1~10kV"]
-            tariff_name = st.selectbox("国网进线等级 (kV, 电价依据)", tariff_selection)
-            tariff = tariff_choices[tariff_selection.index(tariff_name)] + ".json"
-            with open('./data/tariffs/' + tariff) as a:
-                tariff_dict = json.load(a)
-                revenue_threshold = (tariff_dict['energy_charge']['price']['peak'] * 2 * one_way_efficiency) - \
-                                    (tariff_dict['energy_charge']['price']['valley'] / one_way_efficiency) - \
-                                    (tariff_dict['energy_charge']['price']['normal'] / one_way_efficiency)
-            revenue_threshold = st.number_input("每度电电度收益最大值 (元/kWh)", min_value=revenue_threshold,
-                                                max_value=revenue_threshold, value=revenue_threshold)
-        with col2:
-            billing_type = st.selectbox("电费计算方式", ["容量结算", "需量结算"])
-            billing_type = "transformer_capacity" if billing_type == "容量结算" else "peak_demand"
-            transformer_capacity = st.number_input("变压器容量 (kVA)", min_value=0, max_value=999999, value=999999, step=1)
-        tariff_fig = plot_tariff_data(tariff_dict, mandarin=True)
-        st.plotly_chart(tariff_fig, use_container_width=True)
-    st.text("")
-    st.text("")
-
-
-    solar_to_battery = "False"
-    solar_to_battery_purchase_price = 0.35
-    solar_to_grid_price = 0.42
-    if strtobool(simulate_pv) and load_data is not None:
-        st.markdown("**5. 光伏信息**")
-        col1, col2 = st.columns(2)
-        with col1:
-            solar_to_battery = str(st.selectbox("光伏是否可以给储能充电", ["False", "True"], 0))
-            if strtobool(solar_to_battery):
+            st.markdown("#### 4. 光伏信息")
+            solar_to_battery = "False"
+            solar_to_battery_purchase_price = 0.35
+            solar_to_grid_price = 0.42
+            col1, col2 = st.columns(2)
+            with col1:
+                solar_to_battery = str(st.selectbox("光伏是否可以给储能充电", ["False", "True"], 0))
+                # if strtobool(solar_to_battery):
                 solar_to_battery_purchase_price = st.number_input("储能收购光伏价格 (元/kWh)",
-                                                                  min_value=0.00, max_value=99.99, value=0.39, step=0.01)
-        with col2:
-            solar_to_grid_price = st.number_input("光伏倒送电网单价 (元/kWh)",
-                                                  min_value=0.00, max_value=99.99, value=0.42, step=0.01)
-    st.text("")
-    st.text("")
+                                                                  min_value=0.00, max_value=99.99, value=0.39,
+                                                                  step=0.01)
+            with col2:
+                solar_to_grid_price = st.number_input("光伏倒送电网单价 (元/kWh)",
+                                                      min_value=0.00, max_value=99.99, value=0.42, step=0.01)
+            st.text("")
+            st.text("")
 
+            # Save ev inputs results
+            with open('./data/project_params_template.json') as json_file:
+                ev_inputs = json.load(json_file)
+                ev_inputs["mode"] = simulate_mode
+                ev_inputs["project_params"]["project_name"] = project_name
+                ev_inputs["project_params"]["project_years"] = project_years
+                ev_inputs["project_params"]["depreciation_years"] = depreciation_years
+                ev_inputs["project_params"]["tariff_name"] = tariff
+                ev_inputs["project_params"]["min_soc"] = min_soc
+                ev_inputs["project_params"]["max_soc"] = max_soc
+                ev_inputs["project_params"]["battery_size_kWh"] = battery_size_kWh
+                ev_inputs["project_params"]["battery_power_kW"] = battery_power_kW
+                ev_inputs["project_params"]["one_way_efficiency"] = one_way_efficiency
+                ev_inputs["project_params"]["battery_degradation_per_year"] = battery_degradation_per_year
+                ev_inputs["project_params"]["ess_cost_rmb_per_kwh"] = ess_cost_rmb_per_kwh
+                ev_inputs["project_params"]["transformer_capacity"] = transformer_capacity
+                ev_inputs["project_params"]["billing_type"] = billing_type
+                ev_inputs["project_params"]["count_working_days"] = count_working_days
+                ev_inputs["pv_params"]["simulate_pv"] = simulate_pv
+                ev_inputs["pv_params"]["solar_to_grid_price"] = solar_to_grid_price
+                ev_inputs["pv_params"]["solar_to_battery"] = solar_to_battery
+                ev_inputs["pv_params"]["solar_to_battery_purchase_price"] = solar_to_battery_purchase_price
 
-    # Save ev inputs results
-    if load_data is not None:
-        with open('./data/project_params_template.json') as json_file:
-            ev_inputs = json.load(json_file)
-            ev_inputs["mode"] = simulate_mode
-            ev_inputs["project_params"]["project_name"] = project_name
-            ev_inputs["project_params"]["project_years"] = project_years
-            ev_inputs["project_params"]["depreciation_years"] = depreciation_years
-            ev_inputs["project_params"]["tariff_name"] = tariff
-            ev_inputs["project_params"]["min_soc"] = min_soc
-            ev_inputs["project_params"]["max_soc"] = max_soc
-            ev_inputs["project_params"]["battery_size_kWh"] = battery_size_kWh
-            ev_inputs["project_params"]["battery_power_kW"] = battery_power_kW
-            ev_inputs["project_params"]["one_way_efficiency"] = one_way_efficiency
-            ev_inputs["project_params"]["battery_degradation_per_year"] = battery_degradation_per_year
-            ev_inputs["project_params"]["ess_cost_rmb_per_kwh"] = ess_cost_rmb_per_kwh
-            ev_inputs["project_params"]["transformer_capacity"] = transformer_capacity
-            ev_inputs["project_params"]["billing_type"] = billing_type
-            ev_inputs["project_params"]["count_working_days"] = count_working_days
-            ev_inputs["pv_params"]["simulate_pv"] = simulate_pv
-            ev_inputs["pv_params"]["solar_to_grid_price"] = solar_to_grid_price
-            ev_inputs["pv_params"]["solar_to_battery"] = solar_to_battery
-            ev_inputs["pv_params"]["solar_to_battery_purchase_price"] = solar_to_battery_purchase_price
+        # Submit
+        dir = None
+        submit_button = st.form_submit_button(label='提交模拟请求')
 
-    # Submit
-    submit = False
-    dir = None
-    if load_data is not None:
-        st.markdown("**6. 确认提交**")
-        # project_name = st.text_input("本次模拟请求名称")
-        # username = st.text_input("邮箱地址")
-        # password = st.text_input("密码", type="password")
-        submit = st.button("提交模拟请求")
-    if submit and load_data is not None:
+    if submit_button and load_data is not None:
         st.info("你已提交模拟请求")
         dir = obtain_results(config=ev_inputs, load=load_data, tariff_dict=tariff_dict)
         summary = pd.read_csv(f"{dir}/summary.csv")
@@ -259,7 +253,7 @@ if secure:
 
     # Check or download results
     if dir is not None:
-        st.markdown("**7. 查看结果**")
+        st.markdown("### 查看分析结果")
         st.table(summary.iloc[:, :9])
         st.table(summary.iloc[:, 9:])
         submit = st.info("下载结果")
