@@ -13,7 +13,7 @@ from plotly import graph_objs as go
 import plotly.express as px
 
 st.set_page_config(page_title="EnergyValue", page_icon=":zap:")
-st.title("EnergyValue V2.4.1")
+st.title("EnergyValue V2.4.2")
 
 st.markdown("储能系统负荷分析及收益测算工具")
 st.text("")
@@ -131,7 +131,7 @@ if secure:
                 simulate_pv = "True" if "光伏" in project_scope else "False"
                 project_years = int(st.slider("项目年限 (年)", 5, 20, 15))
                 ess_cost_rmb_per_kwh = int(
-                    st.number_input("储能系统造价 (元/kWh)", min_value=0, max_value=2000, value=1450, step=1))
+                    st.number_input("储能系统造价 (元/kWh)", min_value=0, max_value=3000, value=1450, step=1))
                 count_working_days = int(st.number_input("全年工作天数 (日)", min_value=250, value=365, step=1))
             with col2:
                 project_address = st.text_input("项目地址")
@@ -150,8 +150,8 @@ if secure:
                 # storage_size = st.number_input("500kWh-125kW数量", min_value=1, max_value=100, value=1, step=1)
                 # battery_size_kWh = storage_size * 500
                 # battery_power_kW = storage_size * 125
-                battery_size_kWh = st.number_input("储能kWh", min_value=1, max_value=10000, value=1, step=1)
-                battery_power_kW = st.number_input("储能kW", min_value=1, max_value=5000, value=1, step=1)
+                battery_size_kWh = st.number_input("电池容量kWh", min_value=1, max_value=10000, value=1000, step=100)
+                battery_power_kW = st.number_input("电池功率kW", min_value=1, max_value=5000, value=250, step=100)
                 min_soc = st.number_input("最小SOC (%)", min_value=0, max_value=100, value=0, step=1) / 100
                 max_soc = st.number_input("最大SOC (%)", min_value=0, max_value=100, value=100, step=1) / 100
 
@@ -173,10 +173,12 @@ if secure:
             st.markdown("#### 3. 电网接入信息")
             col1, col2 = st.columns(2)
             with col1:
-                tariff_choices = ["jiangsu_202101_1_10kV", "jiangsu_202101_20_35kV", "jiangsu_202101_35_110kV",
-                                  "jiangsu_202101_110_220kV", "jiangsu_202101_220kV",
-                                  "jiangsu_202101_low_1_10kV"]
-                tariff_selection = ["1~10kV", "20~35kV", "35~110kV", "110~220kV", ">220kV", "low_1~10kV"]
+                # tariff_choices = ["jiangsu_202101_1_10kV", "jiangsu_202101_20_35kV", "jiangsu_202101_35_110kV",
+                #                   "jiangsu_202101_110_220kV", "jiangsu_202101_220kV",
+                #                   "jiangsu_202101_low_1_10kV"]
+                # tariff_selection = ["1~10kV", "20~35kV", "35~110kV", "110~220kV", ">220kV", "low_1~10kV"]
+                tariff_choices = ["jiangsu_202206_1_10kV", "jiangsu_202206_20_35kV"]
+                tariff_selection = ["1~10kV", "20~35kV"]
                 tariff_name = st.selectbox("国网进线等级 (kV, 电价依据)", tariff_selection)
                 tariff = tariff_choices[tariff_selection.index(tariff_name)] + ".json"
                 with open('./data/tariffs/' + tariff) as a:
