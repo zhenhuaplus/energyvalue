@@ -20,7 +20,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3d0dff2-7648-4596-b3da-f921980aa650" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/web_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ei_pre.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ei_pre.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sample_data/.hansen_0115_0715_5min.csv.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sample_data/.hs_0114_0602_1min.csv.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sample_data/.hs_0115_0331_1min.csv.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sample_data/.hs_0501_0531_1min.csv.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sample_data/.hs_data_0114_0602.csv.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sample_data/.xd_0801_0324_1min.csv.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/document.py" beforeDir="false" afterPath="$PROJECT_DIR$/archived/document.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extract_peaks.py" beforeDir="false" afterPath="$PROJECT_DIR$/archived/extract_peaks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_fake_daily_load.py" beforeDir="false" afterPath="$PROJECT_DIR$/archived/generate_fake_daily_load.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/get_potential_savings.py" beforeDir="false" afterPath="$PROJECT_DIR$/archived/get_potential_savings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/archived/logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_financial_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_financial_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_generate_fake.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_generate_fake.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_optimization_solar.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_optimization_solar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_risk_profile.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_risk_profile.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,13 +65,15 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/data/production_inputs" />
-      <recent name="$PROJECT_DIR$/data/test_inputs" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/data" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests" />
+      <recent name="$PROJECT_DIR$/archived" />
+      <recent name="$PROJECT_DIR$/data/production_inputs" />
+      <recent name="$PROJECT_DIR$/data/test_inputs" />
     </key>
   </component>
   <component name="RunManager" selected="Python.load_analysis_clustering">
@@ -112,7 +131,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_financial_analysis.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_financial_analysis.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
